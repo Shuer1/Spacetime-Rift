@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class RuntimeDataCleaner : MonoBehaviour
 {
+    [Header("是否清理PlayerPrefs数据")]
+    [SerializeField] private bool doClearPlayerPrefs = false;
     public void ClearAllData()
     {
         Debug.Log("========== 运行时清除所有数据 ==========");
@@ -11,7 +13,7 @@ public class RuntimeDataCleaner : MonoBehaviour
         ClearPlayerData();
         ClearEnemyData();
         ClearFirstTalkData();
-        ClearPlayerPrefs();
+        ClearPlayerPrefs(doClearPlayerPrefs);
 
         Debug.Log("========== 清除完成 ==========");
     }
@@ -74,8 +76,13 @@ public class RuntimeDataCleaner : MonoBehaviour
     /* ============================= */
     /* PlayerPrefs */
     /* ============================= */
-    void ClearPlayerPrefs()
+    void ClearPlayerPrefs(bool doClear)
     {
+        if (!doClear)
+        {
+            return;
+        }
+
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 
